@@ -1,29 +1,22 @@
 package modelo;
 
+import java.sql.Timestamp;
+
 public class Usuario {
-    
+
     private int id;
     private String nombre;
     private String correo;
     private String password;
     private int idRol;
+    private Timestamp ultimoAcceso;
+    private int intentosFallidos;
     private String estadoCuenta;
 
-    // 1. Constructor vacío (Obligatorio para que JSF y Java trabajen bien con esta clase)
     public Usuario() {
     }
 
-    // 2. Constructor con parámetros (Opcional, pero útil para crear usuarios rápidos en el código)
-    public Usuario(int id, String nombre, String correo, String password, int idRol, String estadoCuenta) {
-        this.id = id;
-        this.nombre = nombre;
-        this.correo = correo;
-        this.password = password;
-        this.idRol = idRol;
-        this.estadoCuenta = estadoCuenta;
-    }
-
-    // 3. Getters y Setters (Para leer y escribir los datos de forma segura)
+    // Getters y Setters completos
     public int getId() {
         return id;
     }
@@ -62,6 +55,22 @@ public class Usuario {
 
     public void setIdRol(int idRol) {
         this.idRol = idRol;
+    }
+
+    public Timestamp getUltimoAcceso() {
+        return ultimoAcceso;
+    }
+
+    public void setUltimoAcceso(Timestamp ultimoAcceso) {
+        this.ultimoAcceso = ultimoAcceso;
+    }
+
+    public int getIntentosFallidos() {
+        return intentosFallidos;
+    }
+
+    public void setIntentosFallidos(int intentosFallidos) {
+        this.intentosFallidos = intentosFallidos;
     }
 
     public String getEstadoCuenta() {
