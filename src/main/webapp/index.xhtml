@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+    <h:head>
+        <title>Prueba Don Licor V2</title>
+        <style>
+            body { font-family: Arial, sans-serif; background-color: #1e1e1e; color: #fff; text-align: center; padding-top: 100px; }
+            .caja { background-color: #333; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0px 4px 10px rgba(0,0,0,0.5); }
+            h1 { color: #4CAF50; }
+        </style>
+    </h:head>
+    <h:body>
+        <div class="caja">
+            <h1>Sistema Don Licor V2</h1>
+            <p>Estado de la Arquitectura:</p>
+            
+            <!-- Aquí llamamos a la función getEstadoConexion() de nuestro Bean -->
+            <h3><h:outputText value="#{testBean.estadoConexion}" /></h3>
+            
+        </div>
+    </h:body>
+</html>
