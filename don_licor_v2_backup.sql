@@ -375,7 +375,7 @@ CREATE TABLE `roles` (
   `nombre` varchar(50) NOT NULL,
   `nivel_prioridad` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,7 +384,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Administrador',1);
+INSERT INTO `roles` VALUES (1,'Administrador',1),(3,'Vendedor Turno Tarde',2),(5,'Dueño / Gerente',1),(6,'Cajero Turno Mañana',2),(7,'Cajero Turno Tarde',2),(8,'Cajero Turno Noche',2),(9,'Almacenero Turno Mañana',3),(10,'Almacenero Turno Tarde',3),(11,'Almacenero Turno Noche',3);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -459,7 +459,7 @@ CREATE TABLE `usuarios` (
   UNIQUE KEY `correo` (`correo`),
   KEY `id_rol` (`id_rol`),
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -468,7 +468,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Lee Vallasco','admin@donlicor.com','123456',1,NULL,0,'Activo');
+INSERT INTO `usuarios` VALUES (1,'Lee Vallasco','admin@donlicor.com','123456',1,NULL,0,'Activo'),(3,'neyder','neyder@donlicor.com','123456',1,NULL,0,'Activo'),(5,'martin','martin@donlicor.com','123456',1,NULL,0,'Activo'),(6,'damper','damper@donlicor.com','123456',11,NULL,0,'Activo');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -545,4 +545,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-17  3:06:32
+-- Dump completed on 2026-10-17 11:20:19

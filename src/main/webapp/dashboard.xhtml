@@ -7,19 +7,42 @@
     </h:head>
     <h:body class="bg-light">
         
-        <div class="container mt-5">
-            <div class="card shadow p-5 text-center">
-                <h1 class="text-success mb-3">¡Bienvenido a Don Licor V2! 🚀</h1>
-                
-                <!-- Aquí JSF imprime el nombre del usuario que inició sesión -->
-                <h3>Hola, <h:outputText value="#{loginBean.usuarioLogueado.nombre}" class="text-primary fw-bold" /></h3>
-                
-                <p class="text-muted mt-2">Has superado la arquitectura de seguridad e iniciado sesión correctamente.</p>
-                
-                <h:form class="mt-4">
-                    <!-- Botón que ejecuta la función de limpiar la memoria y salir -->
-                    <h:commandButton value="Cerrar Sesión" action="#{loginBean.cerrarSesion}" class="btn btn-outline-danger px-4" />
-                </h:form>
+        <!-- Barra de Navegación -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#">🚀 Don Licor V2</a>
+                <div class="d-flex">
+                    <h:form>
+                        <!-- Botón de cerrar sesión movido a la barra superior -->
+                        <h:commandButton value="Cerrar Sesión" action="#{loginBean.cerrarSesion}" class="btn btn-outline-danger btn-sm fw-bold" />
+                    </h:form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-4">
+            <div class="text-center mb-5">
+                <!-- Saludo dinámico -->
+                <h2 class="text-success fw-bold">¡Bienvenido, <h:outputText value="#{loginBean.usuarioLogueado.nombre}" />!</h2>
+                <p class="text-muted">Panel de Administración Principal</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <!-- Tarjeta del Módulo de Usuarios -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm text-center h-100 border-primary">
+                        <div class="card-body py-5">
+                            <h1 class="display-4 mb-3">👥</h1>
+                            <h4 class="card-title fw-bold">Gestión de Usuarios</h4>
+                            <p class="card-text text-muted mb-4">Crea, edita y elimina los accesos al sistema.</p>
+                            
+                            <!-- BOTÓN DIRECTO AL CRUD -->
+                            <a href="usuarios.xhtml" class="btn btn-primary w-100 fw-bold btn-lg">Ingresar al Módulo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- En el futuro aquí agregaremos la tarjeta de Productos, Clientes, etc. -->
             </div>
         </div>
         
