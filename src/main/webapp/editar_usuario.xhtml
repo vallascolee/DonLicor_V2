@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <h:head>
+        <title>Editar Usuario - Don Licor V2</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    </h:head>
+    <h:body class="bg-light">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="dashboard.xhtml">🚀 Don Licor V2</a>
+                <span class="navbar-text text-light">Módulo de Usuarios</span>
+            </div>
+        </nav>
+
+        <div class="container d-flex justify-content-center">
+            <div class="card shadow-sm w-50 border-warning">
+                <div class="card-header bg-warning text-dark py-3">
+                    <h5 class="mb-0 fw-bold">✏️ Editar Usuario</h5>
+                </div>
+
+                <div class="card-body p-4">
+                    <h:form>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nombre Completo</label>
+                            <h:inputText value="#{usuarioBean.usuarioSeleccionado.nombre}" class="form-control" required="true" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Correo Electrónico</label>
+                            <h:inputText value="#{usuarioBean.usuarioSeleccionado.correo}" class="form-control" required="true" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Contraseña</label>
+                            <h:inputText value="#{usuarioBean.usuarioSeleccionado.password}" class="form-control" required="true" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Rol en el Sistema</label>
+                            <h:selectOneMenu value="#{usuarioBean.usuarioSeleccionado.idRol}" class="form-select">
+                                <f:selectItem itemValue="5" itemLabel="Dueño / Gerente" />
+                                <f:selectItem itemValue="1" itemLabel="Administrador" />
+                                <f:selectItem itemValue="6" itemLabel="Cajero - Turno Mañana" />
+                                <f:selectItem itemValue="7" itemLabel="Cajero - Turno Tarde" />
+                                <f:selectItem itemValue="8" itemLabel="Cajero - Turno Noche" />
+                                <f:selectItem itemValue="2" itemLabel="Vendedor - Turno Mañana" />
+                                <f:selectItem itemValue="3" itemLabel="Vendedor - Turno Tarde" />
+                                <f:selectItem itemValue="4" itemLabel="Vendedor - Turno Noche" />
+                                <f:selectItem itemValue="9" itemLabel="Almacenero - Turno Mañana" />
+                                <f:selectItem itemValue="10" itemLabel="Almacenero - Turno Tarde" />
+                                <f:selectItem itemValue="11" itemLabel="Almacenero - Turno Noche" />
+                            </h:selectOneMenu>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Estado de Cuenta</label>
+                            <h:selectOneMenu value="#{usuarioBean.usuarioSeleccionado.estadoCuenta}" class="form-select">
+                                <f:selectItem itemValue="Activo" itemLabel="🟢 Activo (Permitir acceso)" />
+                                <f:selectItem itemValue="Inactivo" itemLabel="🔴 Inactivo (Acceso suspendido)" />
+                                <f:selectItem itemValue="Bloqueado" itemLabel="❌ Bloqueado (Por intentos fallidos)" />
+                            </h:selectOneMenu>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <h:commandButton value="Actualizar Datos" action="#{usuarioBean.actualizarUsuario}" class="btn btn-warning fw-bold btn-lg" />
+                            <a href="usuarios.xhtml" class="btn btn-outline-secondary">Cancelar</a>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+</html>

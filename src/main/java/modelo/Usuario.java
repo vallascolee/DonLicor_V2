@@ -1,7 +1,5 @@
 package modelo;
 
-import java.sql.Timestamp;
-
 public class Usuario {
 
     private int id;
@@ -9,9 +7,9 @@ public class Usuario {
     private String correo;
     private String password;
     private int idRol;
-    private Timestamp ultimoAcceso;
     private int intentosFallidos;
     private String estadoCuenta;
+    private String ultimoAcceso;
 
     public Usuario() {
     }
@@ -57,14 +55,6 @@ public class Usuario {
         this.idRol = idRol;
     }
 
-    public Timestamp getUltimoAcceso() {
-        return ultimoAcceso;
-    }
-
-    public void setUltimoAcceso(Timestamp ultimoAcceso) {
-        this.ultimoAcceso = ultimoAcceso;
-    }
-
     public int getIntentosFallidos() {
         return intentosFallidos;
     }
@@ -80,4 +70,13 @@ public class Usuario {
     public void setEstadoCuenta(String estadoCuenta) {
         this.estadoCuenta = estadoCuenta;
     }
+
+    public String getUltimoAcceso() {
+        return ultimoAcceso;
+    }
+
+    public void setUltimoAcceso(String ultimoAcceso) {
+        this.ultimoAcceso = ultimoAcceso;
+    }
+
 }

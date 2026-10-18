@@ -19,22 +19,25 @@ public class LoginBean implements Serializable {
     public LoginBean() {
     }
 
-    public String iniciarSesion() {
+  public String iniciarSesion() {
         UsuarioDAO dao = new UsuarioDAO();
-        // Llamamos al método que creaste en el paso anterior
-        usuarioLogueado = dao.autenticar(correo, password);
+        Usuario usr = dao.autenticar(correo, password);
 
-        if (usuarioLogueado != null) {
-            // Login exitoso: Redireccionamos a una página de bienvenida (la crearemos luego)
+        if (usr != null) {
+            // 1. Llenamos la variable interna del Bean para que el Dashboard pueda mostrar el nombre
+            this.usuarioLogueado = usr;
+            
+            // 2. Guardamos la sesión para que el Filtro de Seguridad te deje pasar
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usr);
+            
             return "dashboard.xhtml?faces-redirect=true";
         } else {
-            // Login fallido: Mostramos un mensaje de error en la pantalla
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciales incorrectas o cuenta inactiva", null));
-            return null; // Nos quedamos en la misma página
+            // Error: Credenciales incorrectas o cuenta bloqueada
+            FacesContext.getCurrentInstance().addMessage(null, 
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Acceso denegado", "Correo/contraseña incorrectos o cuenta bloqueada."));
+            return null; // Retorna null para quedarse en la misma página de login
         }
     }
-
     public String cerrarSesion() {
         usuarioLogueado = null;
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();

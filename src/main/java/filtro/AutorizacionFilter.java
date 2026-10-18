@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 // Esta etiqueta le indica al servidor qué páginas debe proteger este filtro
-@WebFilter(urlPatterns = {"/dashboard.xhtml", "/usuarios.xhtml", "/nuevo_usuario.xhtml"})
+@WebFilter(urlPatterns = {"/dashboard.xhtml", "/usuarios.xhtml", "/nuevo_usuario.xhtml", "/editar_usuario.xhtml"})
 public class AutorizacionFilter implements Filter {
 
     @Inject
