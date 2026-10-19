@@ -45,9 +45,10 @@
                                     #{user.correo}
                             </h:column>
 
+                           
                             <h:column>
-                                <f:facet name="header">ID Rol</f:facet>
-                                <span class="badge bg-secondary">#{user.idRol}</span>
+                                <f:facet name="header">Cargo</f:facet>
+                                <span class="badge bg-secondary">#{user.nombreRol}</span>
                             </h:column>
 
                             <h:column>
@@ -56,14 +57,14 @@
                                     #{user.estadoCuenta}
                                 </span>
                             </h:column>
-                            
+
                             <h:column>
                                 <f:facet name="header">Último Acceso</f:facet>
                                 <span class="text-muted small">
                                     🕒 #{user.ultimoAcceso}
                                 </span>
                             </h:column>
-                            
+
                             <h:column>
                                 <f:facet name="header">Acciones</f:facet>
                                 <!-- El botón de Editar lo programaremos en el siguiente paso -->

@@ -96,18 +96,22 @@ public class UsuarioDAO {
         }
     }
     // Método READ: Obtener todos los usuarios registrados
-   public List<Usuario> listarTodos() {
+public List<Usuario> listarTodos() {
         List<Usuario> lista = new ArrayList<>();
-        // Usamos DATE_FORMAT para que la fecha se vea como: 17/10/2026 15:30:00
-        String sql = "SELECT id, nombre, correo, id_rol, estado_cuenta, "
-                   + "DATE_FORMAT(ultimo_acceso, '%d/%m/%Y %H:%i:%s') AS ultimo_acceso_fmt "
-                   + "FROM usuarios";
+        
+        // Unimos usuarios (u) con roles (r) y mantenemos tu formato de fecha
+        String sql = "SELECT u.id, u.nombre, u.correo, u.id_rol, u.estado_cuenta, "
+                   + "DATE_FORMAT(u.ultimo_acceso, '%d/%m/%Y %H:%i:%s') AS ultimo_acceso_fmt, "
+                   + "r.nombre AS nombre_rol "
+                   + "FROM usuarios u "
+                   + "INNER JOIN roles r ON u.id_rol = r.id";
         
         try (Connection con = Conexion.getConexion();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             
             while (rs.next()) {
+                
                 Usuario u = new Usuario();
                 u.setId(rs.getInt("id"));
                 u.setNombre(rs.getString("nombre"));
@@ -115,7 +119,10 @@ public class UsuarioDAO {
                 u.setIdRol(rs.getInt("id_rol"));
                 u.setEstadoCuenta(rs.getString("estado_cuenta"));
                 
-                // Capturamos la fecha formateada. Si es null (nunca ha entrado), mostramos un mensaje
+                // Capturamos el texto del cargo gracias al INNER JOIN
+                u.setNombreRol(rs.getString("nombre_rol"));
+                
+                // Capturamos la fecha formateada. Si es null, mostramos un mensaje
                 String fecha = rs.getString("ultimo_acceso_fmt");
                 u.setUltimoAcceso(fecha != null ? fecha : "Nunca ha ingresado");
                 

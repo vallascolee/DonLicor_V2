@@ -10,6 +10,15 @@ public class Usuario {
     private int intentosFallidos;
     private String estadoCuenta;
     private String ultimoAcceso;
+    private String nombreRol;
+
+    public String getNombreRol() {
+        return nombreRol;
+    }
+
+    public void setNombreRol(String nombreRol) {
+        this.nombreRol = nombreRol;
+    }
 
     public Usuario() {
     }

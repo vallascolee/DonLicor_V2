@@ -20,7 +20,7 @@
                 <div class="card-header bg-success text-white py-3">
                     <h5 class="mb-0 fw-bold">Registrar Nuevo Usuario</h5>
                 </div>
-                
+
                 <div class="card-body p-4">
                     <h:form>
                         <div class="mb-3">
@@ -42,21 +42,14 @@
                             <label class="form-label fw-bold">Rol en el Sistema</label>
                             <!-- Menú desplegable para elegir el Rol -->
                             <h:selectOneMenu value="#{usuarioBean.nuevoUsuario.idRol}" class="form-select">
-                                <!-- Gerencia -->
                                 <f:selectItem itemValue="5" itemLabel="Dueño / Gerente" />
                                 <f:selectItem itemValue="1" itemLabel="Administrador" />
-                                
-                                <!-- Cajeros -->
                                 <f:selectItem itemValue="6" itemLabel="Cajero - Turno Mañana" />
                                 <f:selectItem itemValue="7" itemLabel="Cajero - Turno Tarde" />
                                 <f:selectItem itemValue="8" itemLabel="Cajero - Turno Noche" />
-                                
-                                <!-- Vendedores -->
-                                <f:selectItem itemValue="2" itemLabel="Vendedor - Turno Mañana" />
+                                <f:selectItem itemValue="13" itemLabel="Vendedor - Turno Mañana" />
                                 <f:selectItem itemValue="3" itemLabel="Vendedor - Turno Tarde" />
-                                <f:selectItem itemValue="4" itemLabel="Vendedor - Turno Noche" />
-                                
-                                <!-- Almacén -->
+                                <f:selectItem itemValue="12" itemLabel="Vendedor - Turno Noche" />
                                 <f:selectItem itemValue="9" itemLabel="Almacenero - Turno Mañana" />
                                 <f:selectItem itemValue="10" itemLabel="Almacenero - Turno Tarde" />
                                 <f:selectItem itemValue="11" itemLabel="Almacenero - Turno Noche" />
