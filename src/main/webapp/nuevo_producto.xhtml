@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <h:head>
+        <title>Nuevo Producto - Don Licor V2</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    </h:head>
+    <h:body class="bg-light">
+
+        <nav class="navbar navbar-dark bg-dark mb-4 shadow-sm">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1 fw-bold">🚀 Don Licor V2</span>
+                <span class="navbar-text text-white">Módulo de Inventario</span>
+            </div>
+        </nav>
+
+        <div class="container d-flex justify-content-center">
+            <div class="card shadow-sm w-50 border-0 mb-5">
+                <div class="card-header bg-success text-white py-3">
+                    <h5 class="mb-0 fw-bold">📦 Registrar Nuevo Producto</h5>
+                </div>
+
+                <div class="card-body p-4">
+                    <h:messages globalOnly="true" class="alert alert-danger list-unstyled p-2 rounded" />
+
+                    <h:form>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nombre del Producto</label>
+                            <h:inputText value="#{productoBean.productoSeleccionado.nombre}" class="form-control" required="true" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Perfil de Sabor (Opcional)</label>
+                            <h:inputText value="#{productoBean.productoSeleccionado.perfilSabor}" class="form-control" />
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Precio de Venta (S/)</label>
+                                <h:inputText value="#{productoBean.productoSeleccionado.precio}" class="form-control" required="true" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Stock Inicial</label>
+                                <h:inputText value="#{productoBean.productoSeleccionado.stockTotal}" class="form-control" required="true" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Categoría Principal</label>
+                                <h:selectOneMenu value="#{productoBean.productoSeleccionado.idCategoria}" class="form-select">
+                                    <f:selectItem itemValue="1" itemLabel="Cervezas" />
+                                    <f:selectItem itemValue="2" itemLabel="Vinos" />
+                                    <f:selectItem itemValue="3" itemLabel="Licores y Destilados" />
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Subcategoría</label>
+                                <h:selectOneMenu value="#{productoBean.productoSeleccionado.idSubcategoria}" class="form-select">
+                                    <f:selectItem itemValue="1" itemLabel="Artesanal" />
+                                    <f:selectItem itemValue="2" itemLabel="Industrial" />
+                                    <f:selectItem itemValue="3" itemLabel="Vino Tinto" />
+                                    <f:selectItem itemValue="4" itemLabel="Ron" />
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Proveedor</label>
+                            <h:selectOneMenu value="#{productoBean.productoSeleccionado.idProveedor}" class="form-select">
+                                <f:selectItem itemValue="1" itemLabel="Backus" />
+                                <f:selectItem itemValue="2" itemLabel="Pernod Ricard" />
+                                <f:selectItem itemValue="3" itemLabel="Diageo" />
+                            </h:selectOneMenu>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <h:commandButton value="💾 Guardar Producto" action="#{productoBean.guardarProducto}" class="btn btn-success btn-lg fw-bold shadow-sm" />
+                            <h:commandLink action="productos.xhtml?faces-redirect=true" class="btn btn-outline-secondary fw-bold" immediate="true">
+                                Cancelar
+                            </h:commandLink>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+</html>

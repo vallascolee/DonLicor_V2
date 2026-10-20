@@ -234,7 +234,7 @@ CREATE TABLE `productos` (
   CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`id_subcategoria`) REFERENCES `subcategorias` (`id`),
   CONSTRAINT `productos_ibfk_3` FOREIGN KEY (`id_variedad`) REFERENCES `variedades` (`id`),
   CONSTRAINT `productos_ibfk_4` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -375,7 +375,7 @@ CREATE TABLE `roles` (
   `nombre` varchar(50) NOT NULL,
   `nivel_prioridad` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,7 +384,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Administrador',1),(3,'Vendedor Turno Tarde',2),(5,'Dueño / Gerente',1),(6,'Cajero Turno Mañana',2),(7,'Cajero Turno Tarde',2),(8,'Cajero Turno Noche',2),(9,'Almacenero Turno Mañana',3),(10,'Almacenero Turno Tarde',3),(11,'Almacenero Turno Noche',3);
+INSERT INTO `roles` VALUES (1,'Administrador',1),(3,'Vendedor - Turno Tarde',2),(5,'Dueño / Gerente',1),(6,'Cajero - Turno Mañana',2),(7,'Cajero - Turno Tarde',2),(8,'Cajero - Turno Noche',2),(9,'Almacenero - Turno Mañana',3),(10,'Almacenero - Turno Tarde',3),(11,'Almacenero - Turno Noche',3),(12,'Vendedor - Turno Noche',2),(13,'Vendedor - Turno Mañana',2);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -459,7 +459,7 @@ CREATE TABLE `usuarios` (
   UNIQUE KEY `correo` (`correo`),
   KEY `id_rol` (`id_rol`),
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -468,7 +468,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Lee Vallasco','admin@donlicor.com','123456',1,NULL,0,'Activo'),(3,'neyder','neyder@donlicor.com','123456',1,NULL,0,'Activo'),(5,'martin','martin@donlicor.com','123456',1,NULL,0,'Activo'),(6,'damper','damper@donlicor.com','123456',11,NULL,0,'Activo');
+INSERT INTO `usuarios` VALUES (1,'Lee Vallasco','admin@donlicor.com','123456',5,'2026-10-19 19:42:24',0,'Activo'),(3,'neyder','neyder@donlicor.com','123456',1,'2026-10-18 23:37:02',0,'Activo'),(5,'martin','martin@donlicor.com','123456',8,'2026-10-18 23:37:23',3,'Inactivo'),(6,'damper','damper@donlicor.com','123456',10,'2026-10-19 19:14:15',0,'Bloqueado'),(9,'emerson','emerson@donlicor.com','123456',11,NULL,0,'Activo'),(13,'gian','gian@donlicor.com','444',3,NULL,0,'Activo'),(14,'angel','angel@donlicor.com','222',8,NULL,0,'Activo'),(22,'diana','diana@gmail.com','444',7,NULL,0,'Activo'),(23,'adriana','adriana@donlicor.com','444',6,NULL,0,'Activo'),(24,'luis','luis@donlicor.com','123456',1,NULL,0,'Activo');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -545,4 +545,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-17 11:20:19
+-- Dump completed on 2026-10-19 15:04:04
