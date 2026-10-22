@@ -22,12 +22,13 @@
                 </div>
 
                 <div class="card-body p-4">
-                    <h:messages globalOnly="true" class="alert alert-danger list-unstyled p-2 rounded" />
+                    <!-- Se cambió globalOnly="false" para mostrar los errores de validación si faltan datos -->
+                    <h:messages globalOnly="false" class="alert alert-danger list-unstyled p-2 rounded" />
 
-                    <h:form>
+                    <h:form id="formNuevoProducto">
                         <div class="mb-3">
                             <label class="form-label fw-bold">Nombre del Producto</label>
-                            <h:inputText value="#{productoBean.productoSeleccionado.nombre}" class="form-control" required="true" />
+                            <h:inputText value="#{productoBean.productoSeleccionado.nombre}" class="form-control" required="true" requiredMessage="El nombre es obligatorio." />
                         </div>
                         
                         <div class="mb-3">
@@ -35,43 +36,46 @@
                             <h:inputText value="#{productoBean.productoSeleccionado.perfilSabor}" class="form-control" />
                         </div>
 
+                        <!-- Fila dividida en 3 para Precio Compra, Precio Venta y Stock -->
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">Precio de Venta (S/)</label>
-                                <h:inputText value="#{productoBean.productoSeleccionado.precio}" class="form-control" required="true" />
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Precio Compra (S/)</label>
+                                <h:inputText value="#{productoBean.productoSeleccionado.precioCompra}" class="form-control" required="true" requiredMessage="Ingrese el precio de compra." />
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Precio Venta (S/)</label>
+                                <h:inputText value="#{productoBean.productoSeleccionado.precio}" class="form-control" required="true" requiredMessage="Ingrese el precio de venta." />
+                            </div>
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label fw-bold">Stock Inicial</label>
-                                <h:inputText value="#{productoBean.productoSeleccionado.stockTotal}" class="form-control" required="true" />
+                                <h:inputText value="#{productoBean.productoSeleccionado.stockTotal}" class="form-control" required="true" requiredMessage="Ingrese el stock." />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Categoría Principal</label>
-                                <h:selectOneMenu value="#{productoBean.productoSeleccionado.idCategoria}" class="form-select">
-                                    <f:selectItem itemValue="1" itemLabel="Cervezas" />
-                                    <f:selectItem itemValue="2" itemLabel="Vinos" />
-                                    <f:selectItem itemValue="3" itemLabel="Licores y Destilados" />
+                                <h:selectOneMenu value="#{productoBean.productoSeleccionado.idCategoria}" class="form-select" required="true" requiredMessage="Seleccione una categoría.">
+                                    <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" />
+                                    <f:selectItems value="#{productoBean.listaCategorias}" var="cat" itemValue="#{cat.id}" itemLabel="#{cat.nombre}" />
+                                    <f:ajax listener="#{productoBean.cargarSubcategorias}" render="comboSubcategoria" />
                                 </h:selectOneMenu>
                             </div>
+
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Subcategoría</label>
-                                <h:selectOneMenu value="#{productoBean.productoSeleccionado.idSubcategoria}" class="form-select">
-                                    <f:selectItem itemValue="1" itemLabel="Artesanal" />
-                                    <f:selectItem itemValue="2" itemLabel="Industrial" />
-                                    <f:selectItem itemValue="3" itemLabel="Vino Tinto" />
-                                    <f:selectItem itemValue="4" itemLabel="Ron" />
+                                <h:selectOneMenu id="comboSubcategoria" value="#{productoBean.productoSeleccionado.idSubcategoria}" class="form-select" required="true" requiredMessage="Seleccione una subcategoría.">
+                                    <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" />
+                                    <f:selectItems value="#{productoBean.listaSubcategorias}" var="sub" itemValue="#{sub.id}" itemLabel="#{sub.nombre}" />
                                 </h:selectOneMenu>
                             </div>
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label fw-bold">Proveedor</label>
-                            <h:selectOneMenu value="#{productoBean.productoSeleccionado.idProveedor}" class="form-select">
-                                <f:selectItem itemValue="1" itemLabel="Backus" />
-                                <f:selectItem itemValue="2" itemLabel="Pernod Ricard" />
-                                <f:selectItem itemValue="3" itemLabel="Diageo" />
+                            <h:selectOneMenu value="#{productoBean.productoSeleccionado.idProveedor}" class="form-select" required="true" requiredMessage="Seleccione un proveedor.">
+                                <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" />
+                                <f:selectItems value="#{productoBean.listaProveedores}" var="prov" itemValue="#{prov.id}" itemLabel="#{prov.nombre}" />
                             </h:selectOneMenu>
                         </div>
 

@@ -28,7 +28,7 @@ CREATE TABLE `categorias` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +37,7 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
+INSERT INTO `categorias` VALUES (1,'Whisky'),(2,'Vodka'),(3,'Ron'),(4,'Tequila y mezcal'),(5,'Gin'),(6,'Vinos'),(7,'Cervezas'),(8,'Licores y cremas'),(9,'Pisco y aguardientes'),(10,'Bebidas sin alcohol y complementos');
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +57,7 @@ CREATE TABLE `clientes` (
   `direccion` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `documento` (`documento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,6 +66,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (1,'Público','General','00000000','-','Sin dirección');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +89,7 @@ CREATE TABLE `detalle_venta` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`) ON DELETE CASCADE,
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,6 +98,7 @@ CREATE TABLE `detalle_venta` (
 
 LOCK TABLES `detalle_venta` WRITE;
 /*!40000 ALTER TABLE `detalle_venta` DISABLE KEYS */;
+INSERT INTO `detalle_venta` VALUES (1,9,21,1,35.00,35.00),(2,9,1,2,6.50,13.00),(3,9,17,1,99.00,99.00),(4,9,4,1,49.90,49.90);
 /*!40000 ALTER TABLE `detalle_venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +199,7 @@ CREATE TABLE `metodos_pago` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,6 +208,7 @@ CREATE TABLE `metodos_pago` (
 
 LOCK TABLES `metodos_pago` WRITE;
 /*!40000 ALTER TABLE `metodos_pago` DISABLE KEYS */;
+INSERT INTO `metodos_pago` VALUES (1,'Efectivo'),(2,'Yape / Plin'),(3,'Tarjeta');
 /*!40000 ALTER TABLE `metodos_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,6 +227,7 @@ CREATE TABLE `productos` (
   `id_variedad` int DEFAULT NULL,
   `id_proveedor` int NOT NULL,
   `perfil_sabor` varchar(50) DEFAULT NULL,
+  `precio_compra` decimal(10,2) DEFAULT NULL,
   `precio` decimal(10,2) NOT NULL,
   `stock_total` int DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -234,7 +239,7 @@ CREATE TABLE `productos` (
   CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`id_subcategoria`) REFERENCES `subcategorias` (`id`),
   CONSTRAINT `productos_ibfk_3` FOREIGN KEY (`id_variedad`) REFERENCES `variedades` (`id`),
   CONSTRAINT `productos_ibfk_4` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,6 +248,7 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` VALUES (1,'Cerveza Pilsen Callao Botella 650ml',7,26,NULL,1,'',5.50,6.50,98),(4,'Vino Tinto Intipalka Malbec 750ml',2,5,NULL,2,NULL,NULL,49.90,24),(14,'Whisky Johnnie Walker Black Label 750ml',4,12,NULL,2,NULL,NULL,115.00,18),(17,'Whisky Jack Daniel\'s Old No. 7 750ml',4,14,NULL,3,NULL,NULL,99.00,24),(19,'golden',1,1,NULL,3,'',NULL,6.00,100),(20,'jack daniel ',4,13,NULL,1,'canela',NULL,90.00,50),(21,'smirnoff',2,7,NULL,2,'manzana',30.00,35.00,49),(23,'cerveza cristal 650ml',7,26,NULL,1,'',5.50,6.50,100),(24,'sky 1 litro',2,7,NULL,1,'clasico',29.00,38.00,50);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +328,7 @@ CREATE TABLE `proveedores` (
   `telefono` varchar(20) DEFAULT NULL,
   `direccion` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -331,6 +337,7 @@ CREATE TABLE `proveedores` (
 
 LOCK TABLES `proveedores` WRITE;
 /*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
+INSERT INTO `proveedores` VALUES (1,'Distribuidora Central S.A.C.','999888777','Av. Industrial 123, Lima'),(2,'Importaciones Licores del Sur','988777666','Calle Los Rosales 456, Surquillo'),(3,'Bebidas Premium Perú S.A.','977666555','Av. Argentina 789, Callao');
 /*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -402,7 +409,7 @@ CREATE TABLE `subcategorias` (
   PRIMARY KEY (`id`),
   KEY `id_categoria` (`id_categoria`),
   CONSTRAINT `subcategorias_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -411,6 +418,7 @@ CREATE TABLE `subcategorias` (
 
 LOCK TABLES `subcategorias` WRITE;
 /*!40000 ALTER TABLE `subcategorias` DISABLE KEYS */;
+INSERT INTO `subcategorias` VALUES (1,1,'Scotch whisky'),(2,1,'Bourbon'),(3,1,'Whisky irlandés'),(4,1,'Whisky japonés'),(5,1,'Whisky blended y single malt'),(6,2,'Vodka clásico'),(7,2,'Vodka saborizado'),(8,2,'Vodka premium'),(9,3,'Ron blanco'),(10,3,'Ron dorado'),(11,3,'Ron añejo'),(12,3,'Ron especiado'),(13,4,'Tequila blanco'),(14,4,'Tequila reposado'),(15,4,'Tequila añejo'),(16,4,'Mezcal'),(17,5,'London Dry'),(18,5,'Gin contemporáneo'),(19,5,'Gin saborizado'),(20,6,'Tinto'),(21,6,'Borgoña'),(22,6,'Blanco'),(23,6,'Rosado'),(24,6,'Espumoso'),(25,6,'Fortificado'),(26,7,'Clásica'),(27,7,'Lager'),(28,7,'Pilsner'),(29,7,'Ale'),(30,7,'IPA'),(31,7,'Stout'),(32,7,'Sin alcohol'),(33,8,'Cremas de licor'),(34,8,'Licor de café'),(35,8,'Licor de hierbas'),(36,8,'Licor de frutas'),(37,8,'Triple sec'),(38,9,'Pisco puro'),(39,9,'Pisco quebranta'),(40,9,'Pisco acholado'),(41,9,'Pisco mosto verde'),(42,9,'Pisco italia'),(43,9,'Aguardientes'),(44,10,'Gaseosas'),(45,10,'Agua mineral'),(46,10,'Agua tónica'),(47,10,'Energizantes'),(48,10,'Jugos y mezcladores');
 /*!40000 ALTER TABLE `subcategorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -459,7 +467,7 @@ CREATE TABLE `usuarios` (
   UNIQUE KEY `correo` (`correo`),
   KEY `id_rol` (`id_rol`),
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -468,7 +476,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Lee Vallasco','admin@donlicor.com','123456',5,'2026-10-19 19:42:24',0,'Activo'),(3,'neyder','neyder@donlicor.com','123456',1,'2026-10-18 23:37:02',0,'Activo'),(5,'martin','martin@donlicor.com','123456',8,'2026-10-18 23:37:23',3,'Inactivo'),(6,'damper','damper@donlicor.com','123456',10,'2026-10-19 19:14:15',0,'Bloqueado'),(9,'emerson','emerson@donlicor.com','123456',11,NULL,0,'Activo'),(13,'gian','gian@donlicor.com','444',3,NULL,0,'Activo'),(14,'angel','angel@donlicor.com','222',8,NULL,0,'Activo'),(22,'diana','diana@gmail.com','444',7,NULL,0,'Activo'),(23,'adriana','adriana@donlicor.com','444',6,NULL,0,'Activo'),(24,'luis','luis@donlicor.com','123456',1,NULL,0,'Activo');
+INSERT INTO `usuarios` VALUES (1,'Lee Vallasco','admin@donlicor.com','123456',5,'2026-10-22 16:21:03',0,'Activo'),(3,'neyder','neyder@donlicor.com','123456',1,'2026-10-18 23:37:02',0,'Activo'),(5,'martin','martin@donlicor.com','123456',8,'2026-10-18 23:37:23',3,'Inactivo'),(6,'damper','damper@donlicor.com','123456',10,'2026-10-19 19:14:15',0,'Bloqueado'),(9,'emerson','emerson@donlicor.com','123456',11,NULL,0,'Activo'),(13,'gian','gian@donlicor.com','444',3,NULL,0,'Activo'),(14,'angel','angel@donlicor.com','222',8,NULL,0,'Activo'),(22,'diana','diana@gmail.com','123456',7,NULL,0,'Inactivo'),(23,'adriana','adriana@donlicor.com','123456',6,NULL,3,'Activo'),(24,'luis','luis@donlicor.com','123456',1,NULL,0,'Activo'),(25,'pepe','pepe@donlicor.com','3333333',3,NULL,0,'Activo');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -524,7 +532,7 @@ CREATE TABLE `ventas` (
   CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
   CONSTRAINT `ventas_ibfk_3` FOREIGN KEY (`id_metodo_pago`) REFERENCES `metodos_pago` (`id`),
   CONSTRAINT `ventas_ibfk_4` FOREIGN KEY (`id_proforma`) REFERENCES `proformas` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -533,6 +541,7 @@ CREATE TABLE `ventas` (
 
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
+INSERT INTO `ventas` VALUES (9,'2026-10-22 13:15:14',196.90,1,1,1,'Boleta','Completada',NULL);
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -545,4 +554,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-19 15:04:04
+-- Dump completed on 2026-10-22 11:23:09

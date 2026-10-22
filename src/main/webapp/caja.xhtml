@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="jakarta.faces.facelets">
+    <h:head>
+        <title>Punto de Venta - Don Licor V2</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <style>
+            body { background-color: #121212; color: #ffffff; }
+            .card-dark { background-color: #1e1e1e; border: 1px solid #333; }
+            .ticket-bg { background-color: #000000; border-left: 1px solid #333; height: 100vh; position: sticky; top: 0; }
+            .product-card:hover { border-color: #d4af37; cursor: pointer; transition: 0.3s; }
+            .btn-gold { background-color: #d4af37; color: #000; font-weight: bold; }
+            .btn-gold:hover { background-color: #b5952f; color: #000; }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form id="formCaja">
+            
+            <!-- Alertas de Error -->
+            <div class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 9999;">
+                <h:messages globalOnly="true" class="alert alert-danger shadow fw-bold list-unstyled m-0" />
+            </div>
+
+            <div class="container-fluid p-0">
+                <div class="row g-0">
+
+                    <!-- COLUMNA IZQUIERDA: BUSCADOR -->
+                    <h:panelGroup id="panelBuscador" layout="block" class="col-md-8 p-4">
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="fw-bold text-white">🥃 Punto de Venta</h2>
+                            <h:commandLink action="dashboard.xhtml?faces-redirect=true" class="btn btn-outline-light btn-sm">
+                                Volver al Dashboard
+                            </h:commandLink>
+                        </div>
+
+                        <!-- Buscador -->
+                        <div class="input-group mb-4 shadow-sm">
+                            <h:inputText value="#{ventaBean.textoBusqueda}" class="form-control bg-dark text-white border-secondary form-control-lg" pt:placeholder="Buscar licor por nombre..." />
+                            <h:commandButton value="Buscar" action="#{ventaBean.buscarProducto}" class="btn btn-outline-light px-4">
+                                <f:ajax execute="@form" render="panelBuscador" />
+                            </h:commandButton>
+                        </div>
+
+                        <!-- Cuadrícula de Productos -->
+                        <div class="row row-cols-1 row-cols-md-3 g-3">
+                            <ui:repeat value="#{ventaBean.listaProductosBusqueda}" var="prod">
+                                <div class="col">
+                                    <div class="card card-dark product-card h-100 text-center p-3">
+                                        <h5 class="text-white fw-bold mb-1">#{prod.nombre}</h5>
+                                        <p class="text-muted small mb-2">Stock: #{prod.stockTotal} unid.</p>
+                                        <h4 class="text-success fw-bold mb-3">S/ #{prod.precio}</h4>
+
+                                        <h:commandButton value="Agregar al Ticket" action="#{ventaBean.agregarAlCarrito(prod)}" 
+                                                         class="btn btn-outline-light btn-sm w-100" disabled="#{prod.stockTotal le 0}">
+                                            <!-- Refresca el ticket, el buscador y el TOTAL -->
+                                            <f:ajax execute="@this" render=":formCaja:panelTicket :formCaja:panelBuscador :formCaja:seccionTotal" />
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </div>
+                    </h:panelGroup>
+
+                    <!-- COLUMNA DERECHA: EL TICKET -->
+                    <div class="col-md-4 ticket-bg p-4 d-flex flex-column">
+                        <h4 class="fw-bold text-center mb-4 text-white">🧾 Ticket de Venta</h4>
+
+                        <!-- Contenedor del Ticket -->
+                        <h:panelGroup id="panelTicket" layout="block" class="table-responsive flex-grow-1">
+                            <h:dataTable value="#{ventaBean.ventaActual.detalles}" var="det" class="table table-dark table-borderless align-middle">
+                                <h:column>
+                                    <span class="fw-bold text-light">#{det.nombreProducto}</span><br/>
+                                    <small class="text-warning fw-bold">#{det.cantidad} unid.</small> <small class="text-muted"> x S/ #{det.precioUnitario}</small>
+                                </h:column>
+                                <h:column>
+                                    <span class="text-success fw-bold">S/ #{det.subtotal}</span>
+                                </h:column>
+                                <h:column>
+                                    <h:commandLink action="#{ventaBean.removerDelCarrito(det)}" class="text-danger text-decoration-none fw-bold">
+                                        X
+                                        <f:ajax execute="@this" render=":formCaja:panelTicket :formCaja:seccionTotal" />
+                                    </h:commandLink>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+
+                        <!-- ESTA ES LA SECCIÓN DEL TOTAL (Ahora sí tiene su ID) -->
+                        <h:panelGroup id="seccionTotal" layout="block" class="mt-auto border-top border-secondary pt-3">
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="fs-4 text-white">TOTAL:</span>
+                                <span class="fs-3 fw-bold text-success">S/ <h:outputText value="#{ventaBean.ventaActual.total}">
+                                        <f:convertNumber pattern="#0.00" />
+                                    </h:outputText></span>
+                            </div>
+
+                            <h:commandButton value="Cobrar Venta" action="#{ventaBean.procesarVenta}" 
+                                             class="btn btn-gold btn-lg w-100 shadow py-3 fs-5" />
+                        </h:panelGroup>
+                    </div>
+
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
